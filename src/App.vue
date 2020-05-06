@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-<!--    <HelloWorld msg="Welcome to Your Vue.js App"/>-->
     <div class="container">
       <h1 class="text-center">MasseyHacks VI Hackenger Stats</h1>
       <p class="text-center">Namespaces: <a :href="'#' + nsp + '-n-title'" :key="nsp + '-n-b'" class="black-link" v-for="nsp in Object.keys(statsData)" v-smooth-scroll>({{nsp}}) </a></p>
@@ -29,7 +28,6 @@
 </template>
 
 <script>
-//import HelloWorld from './components/HelloWorld.vue'
 import EventTimeGraph from "@/components/EventTimeGraph";
 import axios from 'axios';
 
