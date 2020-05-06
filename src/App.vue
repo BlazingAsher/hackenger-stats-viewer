@@ -2,8 +2,9 @@
   <div id="app">
     <div class="container">
       <h1 class="text-center">MasseyHacks VI Hackenger Stats</h1>
+      <p class="text-center">Last Update: {{lastServerStatsUpdate | moment("dddd, MMMM Do [at] h:mm:ss a [UTC]Z")}} <span v-if="lastServerStatsUpdate !== 0">({{(lastServerStatsUpdate - Date.now()) | duration('humanize', true)}})</span> - Update Interval: {{Math.floor(statsUpdateFrequency/1000)}} seconds</p>
       <p class="text-center"><button class="btn btn-primary" @click="toggleDisplay">Toggle Chart/Table</button></p>
-      <p class="text-center">Namespaces: <a :href="'#' + nsp + '-n-title'" :key="nsp + '-n-b'" class="black-link" v-for="nsp in Object.keys(statsData)" v-smooth-scroll>({{nsp}}) </a> - Update Interval: {{Math.floor(statsUpdateFrequency/1000)}} seconds</p>
+      <p class="text-center">Namespaces: <a :href="'#' + nsp + '-n-title'" :key="nsp + '-n-b'" class="black-link" v-for="nsp in Object.keys(statsData)" v-smooth-scroll>({{nsp}}) </a></p>
     </div>
     <div v-if="chartsEnabled" class="container">
       <div v-if="statsData">
@@ -77,6 +78,8 @@ export default {
     return {
       statsData : {},
       statsUpdateFrequency: 0,
+      lastServerStatsUpdate: 0,
+      fromLengthText: "",
       chartsEnabled: true
     }
   },
@@ -84,6 +87,7 @@ export default {
     fetchStats(fromPageLoad = false) {
       axios.get(process.env.VUE_APP_STATS_ENGINE_BASEURL + '/stats').then((response) => {
         this.statsData = response.data.stats.data;
+        this.lastServerStatsUpdate = parseInt(response.data.stats.timestamp);
         if(!fromPageLoad && this.chartsEnabled){
           for(let chart of this.$refs.charts){
             let chartInfo = chart.getChartInfo();
@@ -94,6 +98,7 @@ export default {
       })
       window.setTimeout(this.fetchStats, this.statsUpdateFrequency + Math.floor(this.statsUpdateFrequency * (1/6)))
 
+
     },
     toggleDisplay(){
       this.chartsEnabled = !this.chartsEnabled;
@@ -103,6 +108,7 @@ export default {
     axios.get(process.env.VUE_APP_STATS_ENGINE_BASEURL + '/updateFrequency').then((response) => {
       this.statsUpdateFrequency = parseInt(response.data.frequency);
       this.fetchStats(true);
+      this.$moment.relativeTimeThreshold('ss', 5);
     })
 
   }
