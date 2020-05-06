@@ -14,7 +14,6 @@
             }
         },
         mounted() {
-            console.log(this.chartData);
             let formattedData = [];
             for(let dataSlice in this.chartData){
                 if(Object.prototype.hasOwnProperty.call(this.chartData, dataSlice)){

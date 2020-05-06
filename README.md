@@ -1,24 +1,7 @@
-# hackenger-stats-viewer
+# Hackenger Stats Viewer
 
-## Project setup
-```
-npm install
-```
+A simple and clean interface that displays information given from the [Hackenger Statistics Engine](https://github.com/MasseyHacks/Hackenger-Statistics-Engine).
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+The engine URL must be configured in .env before building. An example is located in `.env.template`.
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Built with Vue.js

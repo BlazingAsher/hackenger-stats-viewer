@@ -42,7 +42,7 @@ export default {
     }
   },
   mounted(){
-    axios.get('http://localhost:3000/stats').then((response) => {
+    axios.get(process.env.VUE_APP_STATS_ENGINE_BASEURL + '/stats').then((response) => {
       this.statsData = response.data.stats.data;
     })
   }
