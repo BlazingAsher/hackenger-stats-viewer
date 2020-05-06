@@ -57,7 +57,7 @@
       <hr>
       <div class="row">
         <div class="col-lg-12">
-          <p class="text-center">MasseyHacks Hackenger Stats Viewer. Copyright (c) 2020 MasseyHacks.<br><a class="black-link" href="https://masseyhacks.ca">Main Site</a></p>
+          <p class="text-center">MasseyHacks Hackenger Stats Viewer. Copyright (c) 2020 MasseyHacks.<br><a class="black-link" href="#top" v-smooth-scroll>Back to Top</a> - <a class="black-link" href="https://masseyhacks.ca">Main Site</a></p>
         </div>
       </div>
     </div>
