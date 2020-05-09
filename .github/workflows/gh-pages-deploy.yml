@@ -19,6 +19,8 @@ jobs:
         run: npm ci
 
       - name: Run deploy script
+        env:
+          VUE_APP_STATS_ENGINE_BASEURL: ${{ secrets.VUE_APP_STATS_ENGINE_BASEURL }}
         run: |
           git config user.name "masseyhacks-ci" && git config user.email "hello@masseyhacks.ca"
           npm run gh-pages-deploy
