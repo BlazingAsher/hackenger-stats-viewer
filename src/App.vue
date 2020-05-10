@@ -84,14 +84,34 @@ export default {
     }
   },
   methods: {
+    processStats(fromServer){
+      for(let nsp of Object.keys(fromServer)){
+        for(let ques of Object.keys(fromServer[nsp])){
+          for(let eve of Object.keys(fromServer[nsp][ques])){
+            fromServer[nsp][ques][eve]["chartData"] = {
+                datasets: [
+                  {
+                    label: 'Events',
+                    data: fromServer[nsp][ques][eve]["chartData"],
+                    backgroundColor: 'rgba(5, 25, 48, 0.9)',
+                    cubicInterpolationMode: 'monotone'
+                  }
+              ]
+            }
+          }
+        }
+      }
+      return fromServer
+    },
     fetchStats(fromPageLoad = false) {
       axios.get(process.env.VUE_APP_STATS_ENGINE_BASEURL + '/stats').then((response) => {
-        this.statsData = response.data.stats.data;
+        this.statsData = this.processStats(response.data.stats.data);
         this.lastServerStatsUpdate = parseInt(response.data.stats.timestamp);
         if(!fromPageLoad && this.chartsEnabled){
           for(let chart of this.$refs.charts){
             let chartInfo = chart.getChartInfo();
-            chart.updateChart(this.statsData[chartInfo[0]][chartInfo[1]][chartInfo[2]]["chartData"]);
+            //let withFormatting =
+            chart.updateChart(this.statsData[chartInfo[0]][chartInfo[1]][chartInfo[2]]["chartData"],);
             chart.drawChart();
           }
         }
@@ -107,7 +127,8 @@ export default {
   mounted(){
     axios.get(process.env.VUE_APP_STATS_ENGINE_BASEURL + '/updateFrequency').then((response) => {
       this.statsUpdateFrequency = parseInt(response.data.frequency);
-      this.fetchStats(true);
+      this.fetchStats();
+      //window.setTimeout(this.fetchStats, 100);
       this.$moment.relativeTimeThreshold('ss', 5);
     })
 
