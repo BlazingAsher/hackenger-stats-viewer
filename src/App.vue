@@ -9,15 +9,15 @@
     <div v-if="chartsEnabled" class="container">
       <div v-if="statsData">
         <div v-for="(nspData, nsp) in statsData" :key="nsp + '-n'">
-          <h1 :id="nsp + '-n-title'" class="mt-5">Namespace: {{nsp}} <small><a href="#top" class="black-link" v-smooth-scroll="">(top)</a></small></h1>
+          <h1 :id="nsp + '-n-title'" class="mt-5">Namespace: {{nsp}} <small><a href="#top" class="black-link" v-smooth-scroll>(top)</a></small></h1>
           <hr>
           <h5>Questions: <a class="btn btn-primary mr-2" :href="'#' + ques + '-q-title'" v-for="ques in Object.keys(nspData)" :key="ques+'-q-b'" v-smooth-scroll>{{ques}}</a></h5>
           <div v-for="(quesData, ques) in nspData" :key="ques + '-q'">
-            <h2 class="mt-5" :id="ques + '-q-title'">Question: {{ques}} <small><a :href="'#' + nsp + '-n-title'" class="black-link" v-smooth-scroll="">(namespace top)</a></small></h2>
+            <h2 class="mt-5" :id="ques + '-q-title'">Question: {{ques}} <small><a :href="'#' + nsp + '-n-title'" class="black-link" v-smooth-scroll>(namespace top)</a></small></h2>
             <h5>Events: <a class="btn btn-primary mr-2" :href="'#' + eve + '-e-title'" v-for="eve in Object.keys(quesData)" :key="eve+'-e-b'" v-smooth-scroll>{{eve}}</a></h5>
             <div class="row">
               <div v-for="(eventData, eve) in quesData" :key="eve + '-e'" class="col-sm-6">
-                <h2 class="mt-5" :id="eve + '-e-title'">Event: {{eve}} <small><a :href="'#' + ques + '-q-title'" class="black-link" v-smooth-scroll="">(question top)</a></small></h2>
+                <h2 class="mt-5" :id="eve + '-e-title'">Event: {{eve}} <small><a :href="'#' + ques + '-q-title'" class="black-link" v-smooth-scroll>(question top)</a></small></h2>
                 <p>Last occurrence: {{eventData.lastTrigger | moment("dddd, MMMM Do [at] h:mm:ss a [UTC]Z")}}</p>
                 <p>Number of occurrences: {{eventData.num}}</p>
                 <event-time-graph :chart-name="eve" :chart-init-data="eventData.chartData" :chart-namespace="nsp" :chart-question="ques" :chart-event="eve" :height="null" :width="null" ref="charts"></event-time-graph>
@@ -30,7 +30,7 @@
     </div>
     <div v-else class="container">
       <div v-for="(nspData, nsp) in statsData" :key="nsp + '-n-t'">
-        <h1 :id="nsp + '-n-title'" class="mt-5">Namespace: {{nsp}} <small><a href="#top" class="black-link" v-smooth-scroll="">(top)</a></small></h1>
+        <h1 :id="nsp + '-n-title'" class="mt-5">Namespace: {{nsp}} <small><a href="#top" class="black-link" v-smooth-scroll>(top)</a></small></h1>
         <table class="table table-bordered">
           <thead>
           <tr>
